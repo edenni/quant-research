@@ -3,3 +3,5 @@ ipywidgets==8.0.7
 yfinance==0.2.26
 mplfinance==0.12.9b7
 plotly==5.15.0
+ta==0.10.2
+backtrader==1.9.78.123
