@@ -7,9 +7,10 @@ from ibapi.contract import Contract
 from ibapi.wrapper import EWrapper
 
 df = pd.read_csv("data/nasdaq100.csv")
-tickers = iter(df["symbol"].values[40:].tolist())
+tickers = iter(df["symbol"].tolist()[92:])
 # tickers = iter(["QQQ"])
 req_ids = iter(range(1000, 2000))
+end_datetime = "20240301-00:00:00"
 
 
 class IBapi(EClient, EWrapper):
@@ -20,8 +21,10 @@ class IBapi(EClient, EWrapper):
     def historicalData(self, reqId, bar):
         with open(f"data/nasdaq100/{self.req2ticker[reqId]}.csv", "a") as f:
             f.write(
-                f"{bar.date},{bar.open},{bar.high},{bar.low},{bar.close},{bar.volume}\n"
+                f"{bar.date},{bar.open},{bar.high},{bar.low},{bar.close},{bar.volume},{bar.wap},{bar.barCount}\n"
             )
+        # print(dir(bar))
+        # print(f"{bar.date},{bar.open},{bar.high},{bar.low},{bar.close},{bar.volume}, ")
 
     def historicalDataEnd(self, reqId, start, end):
         print(
